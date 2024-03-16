@@ -5,8 +5,13 @@ const projectAPI = new ProjectAPI();
 const projectList = document.getElementById("project-list") as HTMLUListElement;
 const addButton = document.getElementById("add-button");
 
+let selectedProjectId: string | null = null;
+
 function displayProjects(): void {
   const projects: Project[] = projectAPI.getAllProjects();
+  selectedProjectId = projects
+    .filter((project) => project.active)
+    .map((project) => project.id)[0];
 
   if (!projectList) return;
 
@@ -70,8 +75,18 @@ function addProject(event: Event): void {
 }
 
 function selectProject(project: Project): void {
-  project.active = !project.active;
+  if (selectedProjectId) {
+    const prevSelectedProject = projectAPI.getProjectById(selectedProjectId);
+    if (prevSelectedProject) {
+      prevSelectedProject.active = false;
+      projectAPI.updateProject(prevSelectedProject);
+    }
+  }
+
+  project.active = true;
   projectAPI.updateProject(project);
+  selectedProjectId = project.id;
+
   displayProjects();
 }
 
