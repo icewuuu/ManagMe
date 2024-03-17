@@ -5,11 +5,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Project Management App</title>
-    <link rel="stylesheet" type="text/css" href="src/style.css" />
+    <link rel="stylesheet" type="text/css" href="src/styles/style.css" />
   </head>
   <body>
     <h1>Project Management App</h1>
-    <!-- Formularz dodawania nowego projektu -->
     <div>
       <form id="add-project-form">
         <input
@@ -25,11 +24,27 @@
           required
         />
         <button id="add-button" type="submit">Dodaj projekt</button>
+        <button id="add-story" type="button">Dodaj historyjke</button>
       </form>
+      <p id="error-message"></p>
     </div>
-    <!-- Lista projektów -->
     <ul id="project-list"></ul>
+    <div id="kanban-board">
+      <div class="column" id="todo-column">
+        <h2>To Do</h2>
+        <div id="todo-stories" class="story-list"></div>
+      </div>
+      <div class="column" id="doing-column">
+        <h2>Doing</h2>
+        <div id="doing-stories" class="story-list"></div>
+      </div>
+      <div class="column" id="done-column">
+        <h2>Done</h2>
+        <div id="done-stories" class="story-list"></div>
+      </div>
+    </div>
     <div id="edit-project-container"></div>
-    <script type="module" src="src\main.ts"></script>
+    <div id="add-story-container"></div>
+    <script type="module" src="src/views/main.ts"></script>
   </body>
 </html>
