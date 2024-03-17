@@ -53,7 +53,7 @@ class ProjectAPI {
       (project) => project.id === projectId
     );
     if (project) {
-      project.stories.push(story.id);
+      project.addStory(story);
       this.updateProject(project);
     }
     const stories: Story[] = this.getAllStories();
