@@ -11,6 +11,7 @@ import { currentUser } from "../views/main";
 import { displayProjects, selectedProjectId } from "./projectsManager";
 import { editTask, deleteTask } from "./tasksManager";
 import UserDB from "../db/users";
+import { displayStoriesForCurrentProject } from "./storiesManager";
 
 const projectAPI = new ProjectAPI();
 
@@ -513,9 +514,10 @@ export function showModalWithTasksForStory(storyId: string): HTMLDivElement {
   );
   modalContent.appendChild(createTaskButton);
 
-  const goBackButton = createButton("Go Back", "modal-button cancel", () =>
-    modal.remove()
-  );
+  const goBackButton = createButton("Go Back", "modal-button cancel", () => {
+    modal.remove();
+    displayStoriesForCurrentProject(selectedProjectId!);
+  });
   modalContent.appendChild(goBackButton);
 
   modal.appendChild(modalContent);

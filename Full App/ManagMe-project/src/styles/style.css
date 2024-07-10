@@ -208,8 +208,8 @@ select {
 }
 
 #kanban-board {
+  display: none;
   width: 90%;
-  display: flex;
   justify-content: space-between;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -302,12 +302,12 @@ select {
   background-color: #d32f2f;
 }
 
-.doing {
+.Doing {
   border-color: #008cba;
   border-width: 3px;
 }
 
-.done {
+.Done {
   border-color: #4caf50;
   border-width: 3px;
 }
@@ -330,48 +330,48 @@ select {
 }
 
 .task-modal-content table {
-  width: 100%; /* Full width of its container */
-  border-collapse: collapse; /* Collapses border to avoid double borders */
-  margin-top: 20px; /* Adds some space above the table */
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
 .task-modal-content th,
 .task-modal-content td {
-  text-align: center; /* Horizontally centers text */
-  vertical-align: middle; /* Vertically centers content */
-  padding: 8px; /* Adds padding inside cells */
-  border-bottom: 1px solid #ddd; /* Adds a light border to the bottom of each cell */
+  text-align: center;
+  vertical-align: middle;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
 }
 
 .task-modal-content th {
-  background-color: #f4f4f4; /* Light grey background for headers */
-  color: #333; /* Dark text color for contrast */
+  background-color: #f4f4f4;
+  color: #333;
   text-align: center;
 }
 
 .task-modal-content tr:hover {
-  background-color: #f5f5f5; /* Slightly changes row background on hover for interactivity */
+  background-color: #f5f5f5;
 }
 
 .modal-button {
-  padding: 5px 10px; /* Adds padding inside the button for better touch */
-  margin-right: 5px; /* Adds margin to the right of buttons for spacing */
-  border: none; /* Removes border */
-  border-radius: 4px; /* Rounds the corners */
-  cursor: pointer; /* Changes cursor to pointer on hover */
+  padding: 5px 10px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .modal-button.active {
-  background-color: #4caf50; /* Green background for active/primary buttons */
-  color: white; /* White text for contrast */
+  background-color: #4caf50;
+  color: white;
 }
 
 .modal-button.cancel {
-  background-color: #f44336; /* Red background for cancel/danger buttons */
-  color: white; /* White text for contrast */
+  background-color: #f44336;
+  color: white;
 }
 
 .modal-button:hover {
-  opacity: 0.8; /* Slightly fades the button on hover for a visual effect */
+  opacity: 0.8;
 }

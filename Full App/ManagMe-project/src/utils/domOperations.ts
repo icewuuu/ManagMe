@@ -100,6 +100,10 @@ export function createStoryCard(story: Story): HTMLDivElement {
   storyOwner.textContent = "Author: " + UsersDB.getUserById(story.owner)?.name;
   storyCard.appendChild(storyOwner);
 
+  const taskAmount = document.createElement("p");
+  taskAmount.textContent = "Tasks: " + story.tasks.length;
+  storyCard.appendChild(taskAmount);
+
   const editButton = createButton("Edit", "edit-story-button", () =>
     editStory(story)
   );

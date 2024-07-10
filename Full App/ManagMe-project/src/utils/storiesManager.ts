@@ -43,7 +43,6 @@ export function displayStoriesForCurrentProject(
   }
 
   sortedStories.forEach((story) => {
-    console.log(story);
     const storyCard = createStoryCard(story);
     storyCard.id = story.id;
     storyCard.draggable = true;
