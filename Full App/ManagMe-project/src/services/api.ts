@@ -1,11 +1,40 @@
 import Project from "../models/projectModel";
-import Story from "../models/storyModel";
+import { Story } from "../models/storyModel";
+import { Task } from "../models/taskModel";
 
 class ProjectAPI {
+  getTasksByProjectId(projectId: string): Task[] | null {
+    const tasks: Task[] = this.getAllTasks();
+    return tasks.filter((task) => task.projectId === projectId);
+  }
+  getTasksByStoryId(storyId: string): Task[] | null {
+    const tasks: Task[] = this.getAllTasks();
+    return tasks.filter((task) => task.storyId === storyId);
+  }
+  updateTask(updatedTask: Task) {
+    const tasks: Task[] = this.getAllTasks();
+    const index: number = tasks.findIndex((task) => task.id === updatedTask.id);
+    if (index !== -1) {
+      tasks[index] = updatedTask;
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+  }
+  deleteTask(taskId: string) {
+    const tasks: Task[] = this.getAllTasks().filter(
+      (task) => task.id !== taskId
+    );
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
+  getTaskById(id: string) {
+    const tasks: Task[] = this.getAllTasks();
+    return tasks.find((task) => task.id === id) || null;
+  }
   getAllProjects(): Project[] {
     return JSON.parse(localStorage.getItem("projects") || "[]");
   }
-
+  getAllTasks(): Task[] {
+    return JSON.parse(localStorage.getItem("tasks") || "[]");
+  }
   getAllStories(): Story[] {
     return JSON.parse(localStorage.getItem("stories") || "[]");
   }
@@ -53,12 +82,26 @@ class ProjectAPI {
       (project) => project.id === projectId
     );
     if (project) {
-      project.addStory(story);
+      project.stories.push(story.id);
       this.updateProject(project);
     }
     const stories: Story[] = this.getAllStories();
     stories.push(story);
     localStorage.setItem("stories", JSON.stringify(stories));
+  }
+
+  createTask(storyId: string, task: Task): void {
+    const stories: Story[] = this.getAllStories();
+    const story: Story | undefined = stories.find(
+      (story) => story.id === storyId
+    );
+    if (story) {
+      story.tasks.push(task.id);
+      this.updateStory(story);
+    }
+    const tasks: Task[] = this.getAllTasks();
+    tasks.push(task);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   }
 
   deleteProject(id: string): void {

@@ -1,18 +1,31 @@
+enum StoryStatus {
+  Todo = "Todo",
+  Doing = "Doing",
+  Done = "Done",
+}
+
+enum StoryPriority {
+  Low = "Low",
+  Medium = "Medium",
+  High = "High",
+}
+
 class Story {
   id: string;
   name: string;
   description: string;
-  priority: "low" | "medium" | "high";
+  priority: StoryPriority;
   project: string;
   createdAt: Date;
-  status: "todo" | "doing" | "done";
+  status: StoryStatus;
   owner: string;
+  tasks: string[] = [];
 
   constructor(
     id: string,
     name: string,
     description: string,
-    priority: "low" | "medium" | "high",
+    priority: StoryPriority,
     project: string,
     owner: string
   ) {
@@ -22,9 +35,9 @@ class Story {
     this.priority = priority;
     this.project = project;
     this.createdAt = new Date();
-    this.status = "todo";
+    this.status = StoryStatus.Todo;
     this.owner = owner;
   }
 }
 
-export default Story;
+export { Story, StoryStatus, StoryPriority };

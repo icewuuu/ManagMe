@@ -1,10 +1,11 @@
 import ProjectAPI from "../services/api";
+import { StoryStatus } from "../models/storyModel";
 
-import { displayStoriesForCurrentProject } from "../views/main";
+import { displayStoriesForCurrentProject } from "./storiesManager";
 
 const projectAPI = new ProjectAPI();
 
-export const drop = (event: DragEvent, status: "todo" | "doing" | "done") => {
+export const drop = (event: DragEvent, status: "Todo" | "Doing" | "Done") => {
   event.preventDefault();
   const data = event.dataTransfer?.getData("text/plain");
   if (!data) return;
@@ -12,8 +13,8 @@ export const drop = (event: DragEvent, status: "todo" | "doing" | "done") => {
 
   if (storyCard) {
     const story = projectAPI.getStoryById(storyCard.id);
-    if (story && story.status !== status) {
-      story.status = status;
+    if (story && story.status !== StoryStatus[status]) {
+      story.status = StoryStatus[status];
       projectAPI.updateStory(story);
       displayStoriesForCurrentProject(story.project);
     }

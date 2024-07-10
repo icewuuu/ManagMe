@@ -1,4 +1,4 @@
-import Story from "./storyModel";
+import { Story } from "./storyModel";
 
 class Project {
   id: string;

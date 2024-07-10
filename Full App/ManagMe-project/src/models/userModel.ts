@@ -1,13 +1,19 @@
+enum UserRole {
+  Admin = "Admin",
+  DevOps = "DevOps",
+  Developer = "Developer",
+}
+
 class User {
   id: string;
-  firstName: string;
-  lastName: string;
+  name: string;
+  role: UserRole;
 
-  constructor(id: string, firstName: string, lastName: string) {
+  constructor(id: string, name: string, role: UserRole) {
     this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
+    this.name = name;
+    this.role = role;
   }
 }
 
-export default User;
+export { User, UserRole };

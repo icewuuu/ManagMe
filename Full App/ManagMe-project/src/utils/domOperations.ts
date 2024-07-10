@@ -1,5 +1,6 @@
-import Story from "../models/storyModel";
-import { editStory, deleteStory } from "../views/main";
+import { Story } from "../models/storyModel";
+import { editStory, deleteStory, showTasks } from "../utils/storiesManager";
+import UsersDB from "../db/users";
 
 export function createButton(
   text: string,
@@ -95,13 +96,22 @@ export function createStoryCard(story: Story): HTMLDivElement {
   storyCreatedAt.textContent = "Created: " + formattedDate;
   storyCard.appendChild(storyCreatedAt);
 
+  const storyOwner = document.createElement("p");
+  storyOwner.textContent = "Author: " + UsersDB.getUserById(story.owner)?.name;
+  storyCard.appendChild(storyOwner);
+
   const editButton = createButton("Edit", "edit-story-button", () =>
     editStory(story)
   );
   const deleteButton = createButton("Delete", "delete-story-button", () =>
     deleteStory(story.id)
   );
-  storyCard.append(editButton, deleteButton);
-
+  const showAllTasksForThisStory = createButton(
+    "Show tasks",
+    "show-tasks-button",
+    () => showTasks(story.id)
+  );
+  storyCard.append(editButton, deleteButton, showAllTasksForThisStory);
+  console.log(storyCard);
   return storyCard;
 }
