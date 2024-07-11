@@ -2,11 +2,8 @@ import { Story } from "../models/storyModel";
 import { displayProjects } from "./projectsManager";
 import ProjectAPI from "../services/api";
 import { createStoryCard } from "../utils/domOperations";
-import {
-  createAddStoryModal,
-  createEditStoryModal,
-  showModalWithTasksForStory,
-} from "./modal";
+import { createAddStoryModal, createEditStoryModal } from "./modalStories";
+import { showModalWithTasksForStory } from "./modalTasks";
 import { selectedProjectId } from "./projectsManager";
 const projectAPI = new ProjectAPI();
 const kanban = document.getElementById("kanban-board")!;

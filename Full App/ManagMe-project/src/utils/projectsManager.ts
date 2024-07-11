@@ -1,7 +1,7 @@
 import Project from "../models/projectModel";
 import ProjectAPI from "../services/api";
 import { createButton } from "../utils/domOperations";
-import { createEditModal } from "./modal";
+import { createEditProjectModal } from "./modalProjects";
 import { displayStoriesForCurrentProject } from "../utils/storiesManager";
 
 const projectAPI = new ProjectAPI();
@@ -69,7 +69,7 @@ function selectProject(project: Project): void {
 }
 
 function editProject(project: Project): void {
-  const modal = createEditModal(project);
+  const modal = createEditProjectModal(project);
   document.body.appendChild(modal);
 }
 

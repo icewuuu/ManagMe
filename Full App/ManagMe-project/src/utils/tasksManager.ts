@@ -4,7 +4,7 @@ import {
   createEditTaskModal,
   createTaskModal,
   showModalWithTasksForStory,
-} from "./modal";
+} from "./modalTasks";
 
 const projectAPI = new ProjectAPI();
 
