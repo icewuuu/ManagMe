@@ -2,6 +2,11 @@ import Project from "../models/projectModel";
 import { Story } from "../models/storyModel";
 import { Task } from "../models/taskModel";
 
+const SECRET_KEY = "your_secret_key";
+const REFRESH_SECRET_KEY = "your_refresh_secret_key";
+const TOKEN_EXPIRATION = "15m";
+const REFRESH_TOKEN_EXPIRATION = "7d";
+
 class ProjectAPI {
   getTasksByProjectId(projectId: string): Task[] | null {
     const tasks: Task[] = this.getAllTasks();

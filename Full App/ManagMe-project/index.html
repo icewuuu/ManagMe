@@ -1,50 +1,22 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Project Management App</title>
-    <link rel="stylesheet" type="text/css" href="src/styles/style.css" />
+    <title>Logowanie</title>
+    <link rel="stylesheet" type="text/css" href="/src/styles/loginStyle.css" />
   </head>
   <body>
-    <h1>Project Management App</h1>
-    <div>
-      <form id="add-project-form">
-        <input
-          type="text"
-          id="project-input"
-          placeholder="Nazwa projektu"
-          required
-        />
-        <input
-          type="text"
-          id="description-input"
-          placeholder="Opis projektu"
-          required
-        />
-        <button id="add-button" type="submit">Dodaj projekt</button>
-        <button id="add-story" type="button">Dodaj historyjke</button>
+    <div class="login-container">
+      <h2>Logowanie</h2>
+      <form id="login-form">
+        <label for="login">Login:</label>
+        <input type="text" id="login" name="login" required />
+        <label for="password">Hasło:</label>
+        <input type="password" id="password" name="password" required />
+        <button type="submit">Zaloguj się</button>
       </form>
-      <p id="error-message"></p>
     </div>
-    <ul id="project-list"></ul>
-    <div id="kanban-board">
-      <div class="column" id="todo-column">
-        <h2>To Do</h2>
-        <div id="Todo-stories" class="story-list"></div>
-      </div>
-      <div class="column" id="doing-column">
-        <h2>Doing</h2>
-        <div id="Doing-stories" class="story-list"></div>
-      </div>
-      <div class="column" id="done-column">
-        <h2>Done</h2>
-        <div id="Done-stories" class="story-list"></div>
-      </div>
-    </div>
-    <div id="edit-project-container"></div>
-    <div id="add-story-container"></div>
-    <script type="module" src="src/views/main.ts"></script>
+    <script type="module" src="/src/views/login.ts"></script>
   </body>
 </html>

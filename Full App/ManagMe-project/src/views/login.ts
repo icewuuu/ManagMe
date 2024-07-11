@@ -1,14 +1,46 @@
-import {
-  displayProjects,
-  addProject,
-  deselectAllProjects,
-} from "../utils/projectsManager";
-import { addStory } from "../utils/storiesManager";
-import { dragLeave, dragOver, drop } from "../utils/dragAndDrop";
-import UsersDB from "../db/users";
 import { jwtDecode } from "jwt-decode";
 
-export const currentUser = UsersDB.getAll()[0];
+interface LoginResponse {
+  token: string;
+  refreshToken: string;
+  message?: string;
+}
+
+async function handleLogin(event: Event): Promise<void> {
+  event.preventDefault();
+
+  const login = (document.getElementById("login") as HTMLInputElement).value;
+  const password = (document.getElementById("password") as HTMLInputElement)
+    .value;
+
+  const response = await fetch("http://localhost:5000/api/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ login, password }),
+  });
+
+  const data: LoginResponse = await response.json();
+
+  const { token, refreshToken } = data;
+
+  if (response.ok) {
+    localStorage.setItem("token", token);
+    localStorage.setItem("refreshToken", refreshToken);
+    alert("Zalogowano pomyślnie!");
+    window.location.href = "/projectManager";
+  } else {
+    alert("Błąd logowania: " + data.message);
+  }
+}
+
+function checkForJwtOnLoad() {
+  const token = localStorage.getItem("token");
+  if (token) {
+    window.location.href = "/projectManager";
+  }
+}
 
 async function displayLoggedInUser() {
   await fetch("http://localhost:5000/api/userinfo", {
@@ -33,7 +65,7 @@ async function displayLoggedInUser() {
     });
 }
 
-function logout() {
+export function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("refreshToken");
   window.location.href = "/";
@@ -82,7 +114,8 @@ async function refreshAccessToken(): Promise<string | null> {
     return null;
   }
 }
-async function makeApiCall() {
+
+export async function makeApiCall() {
   let token = localStorage.getItem("token");
 
   if (token && isTokenExpired(token)) {
@@ -101,52 +134,6 @@ async function makeApiCall() {
   }
 }
 
-window.onload = function () {
-  makeApiCall();
+document.getElementById("login-form")?.addEventListener("submit", handleLogin);
 
-  document.getElementById("logout-button")?.addEventListener("click", logout);
-
-  deselectAllProjects();
-  const addButton = document.getElementById("add-button");
-  const addStoryButton = document.getElementById("add-story");
-
-  addButton?.addEventListener("click", (event) => {
-    event.preventDefault();
-    addProject(event);
-  });
-
-  addStoryButton?.addEventListener("click", (event) => {
-    event.preventDefault();
-    addStory(event);
-  });
-
-  const todoContainer = document.getElementById("Todo-stories")!;
-  const doingContainer = document.getElementById("Doing-stories")!;
-  const doneContainer = document.getElementById("Done-stories")!;
-
-  todoContainer.addEventListener("dragover", (event) =>
-    dragOver(event, "Todo")
-  );
-  todoContainer.addEventListener("drop", (event) => drop(event, "Todo"));
-  todoContainer.addEventListener("dragleave", (event) =>
-    dragLeave(event, "Todo")
-  );
-
-  doingContainer.addEventListener("dragover", (event) =>
-    dragOver(event, "Doing")
-  );
-  doingContainer.addEventListener("drop", (event) => drop(event, "Doing"));
-  doingContainer.addEventListener("dragleave", (event) =>
-    dragLeave(event, "Doing")
-  );
-
-  doneContainer.addEventListener("dragover", (event) =>
-    dragOver(event, "Done")
-  );
-  doneContainer.addEventListener("drop", (event) => drop(event, "Done"));
-  doneContainer.addEventListener("dragleave", (event) =>
-    dragLeave(event, "Done")
-  );
-
-  displayProjects();
-};
+document.addEventListener("DOMContentLoaded", checkForJwtOnLoad);
