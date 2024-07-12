@@ -19,7 +19,7 @@ app.use(
 
 const SECRET_KEY = "your_secret_key";
 const REFRESH_SECRET_KEY = "your_refresh_secret_key";
-const TOKEN_EXPIRATION = "1m";
+const TOKEN_EXPIRATION = "15m";
 const REFRESH_TOKEN_EXPIRATION = "7d";
 
 app.post("/api/login", (req, res) => {

@@ -19,7 +19,6 @@ async function displayLoggedInUser() {
     .then((response) => response.json())
     .then((data) => {
       if (data.message === "Unauthorized") {
-        alert("You are not authorized to view this page. Please log in.");
         window.location.href = "/";
       }
       console.log("User data:", data);
